@@ -42,7 +42,8 @@ const typeController = (e) => {
 
   const newLetterCorrect = validate(newLetter);
 
-  display.scrollTop += 20;
+  // display.scrollTop += 2;
+  newLetter === 'Space' ? '' : display.scrollTop += 20;
   if (newLetterCorrect) {
     display.innerHTML += `<span class="green">${newLetter === " " ? "▪" : newLetter}</span>`;
   } else {
@@ -142,3 +143,6 @@ setInterval(() => {
 
   document.getElementById("show-time").innerHTML = `${startTime ? timeSpent : 0} seconds`;
 }, 1000);
+
+
+reloadPage = () => location.reload();
