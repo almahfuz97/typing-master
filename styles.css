@@ -19,6 +19,7 @@ body {
 #question {
   height: 100px;
   display: flex;
+  padding: 20px;
   align-items: center;
   justify-content: center;
   color: white;
@@ -43,6 +44,8 @@ body {
   background-color: #171717;
   border: 2px solid #9dffad;
   border-radius: 15px;
+  overflow: auto;
+
 }
 
 #countdown {
