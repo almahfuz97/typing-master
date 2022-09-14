@@ -23,6 +23,7 @@ fetch("./texts.json")
 const typeController = (e) => {
   const newLetter = e.key;
 
+  newLetter == ' ' ? e.preventDefault() : null;
   // Handle backspace press
   if (newLetter == "Backspace") {
     userText = userText.slice(0, userText.length - 1);
@@ -51,6 +52,7 @@ const typeController = (e) => {
     display.innerHTML += `<span class="red">${newLetter === " " ? "▪" : newLetter}</span>`;
   }
 
+  // display.innerHTML = '';
   // check if given question text is equal to user typed text
   if (questionText === userText) {
     gameOver();
@@ -105,22 +107,24 @@ const closeModal = () => {
 const start = () => {
   // If already started, do not start again
   if (startTime) return;
-
   let count = 3;
   countdownOverlay.style.display = "flex";
-
   const startCountdown = setInterval(() => {
-    countdownOverlay.innerHTML = `<h1>${count}</h1>`;
+
+    count == 0 ? countdownOverlay.innerHTML = '' : countdownOverlay.innerHTML = `<h1>${count}</h1>`;
 
     // finished timer
     if (count == 0) {
       // remove countdown
       countdownOverlay.style.display = "none";
+      // document.body.ontouchend = function () { document.getElementById("display").focus(); };
 
       // -------------- START TYPING -----------------
       document.addEventListener("keydown", typeController);
       // countdownOverlay.style.display = "flex";
       display.classList.remove("inactive");
+      document.getElementById('display').focus();
+
 
       clearInterval(startCountdown);
       startTime = new Date().getTime();
@@ -139,10 +143,8 @@ displayHistory();
 setInterval(() => {
   const currentTime = new Date().getTime();
   const timeSpent = parseInt((currentTime - startTime) / 1000);
-
-
   document.getElementById("show-time").innerHTML = `${startTime ? timeSpent : 0} seconds`;
 }, 1000);
 
-
-reloadPage = () => location.reload();
+// reload button
+const reloadPage = () => location.reload();
