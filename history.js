@@ -36,7 +36,7 @@ function displayHistory() {
     newRow.innerHTML = `
   <h3>${test.questionText}</h3>
   <p>You took: <span class="bold">${test.timeTaken}</span> seconds</p>
-  <p>Your speed: <span class="bold">${test.speed}</span> word per minute</p>
+  <p>Your speed: <span class="bold">${test.speed}</span> words per minute</p>
   <p>Accuracy: <span class="bold">${test.accuracy}</span>%</p>
     <p>You made <span class="bold red">${test.errorCount}</span> mistakes</p>
   `;
