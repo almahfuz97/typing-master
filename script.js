@@ -82,15 +82,21 @@ const gameOver = () => {
   display.innerHTML = "";
   // make it inactive
   display.classList.add("inactive");
+
+  const accuracySpeed = wordPerMin(questionText.length, timeTaken, errorCount);
+
   // show result
   resultModal.innerHTML += `
     <h1>Finished!</h1>
     <p>You took: <span class="bold">${timeTaken}</span> seconds</p>
+    <p>Speed: <span class="bold"> ${accuracySpeed[0]}</span> wpm </p>
+    <p>Accuracy: <span class="bold"> ${accuracySpeed[1]}</span> %</p>
     <p>You made <span class="bold red">${errorCount}</span> mistakes</p>
     <button onclick="closeModal()">Close</button>
   `;
 
-  addHistory(questionText, timeTaken, errorCount);
+  addHistory(questionText, timeTaken, errorCount, accuracySpeed);
+
 
   // restart everything
   startTime = null;
@@ -117,15 +123,12 @@ const start = () => {
     if (count == 0) {
       // remove countdown
       countdownOverlay.style.display = "none";
-      // document.body.ontouchend = function () { document.getElementById("display").focus(); };
 
       // -------------- START TYPING -----------------
       document.addEventListener("keydown", typeController);
       // countdownOverlay.style.display = "flex";
       display.classList.remove("inactive");
-      document.getElementById('display').focus();
-
-
+      document.body.ontouchend = function () { document.getElementById("display").focus(); };
       clearInterval(startCountdown);
       startTime = new Date().getTime();
     }
@@ -148,3 +151,14 @@ setInterval(() => {
 
 // reload button
 const reloadPage = () => location.reload();
+
+// calculate speed wordPerMin
+
+const wordPerMin = (strLength, totalTime, totalError) => {
+  const speed = Math.round((strLength / 5) / (totalTime / 60));
+  console.log(speed);
+  const accuracy = (((strLength - totalError) / strLength) * 100).toFixed(2);
+  console.log(accuracy);
+  return [speed, accuracy];
+
+} 
