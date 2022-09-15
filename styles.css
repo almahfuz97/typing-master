@@ -207,6 +207,10 @@ p {
     width: 100%;
   }
 
+  #question {
+    font-size: 18px;
+  }
+
   .card {
     flex-direction: column;
   }
